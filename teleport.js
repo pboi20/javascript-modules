@@ -15,34 +15,65 @@ function throttle (callback, limit) {
 class Teleport {
     constructor(el) {
         this.el = el;
-        this.rules = JSON.parse(this.el.dataset.teleport);
-        this.innerHTML = this.el.innerHTML;
-
-        this.el.innerHTML = '';
-
+        this.initialContent = this.el.innerHTML;
+        this.initRules();
         this.handleResize();
+    }
 
-        //window.addEventListener('resize', this.handleResize.bind(this));
+    destroy() {
+        window.removeEventListener('resize', this.onResize);
+    }
+
+    initRules() {
+        const rulesList = JSON.parse(this.el.dataset.teleport);
+
+        this.rules = rulesList.map(rule => ({
+            breakpoint: rule[0],
+            target: document.querySelector(rule[1]),
+            isActive: false,
+        }));
+
+        this.defaultRule = {
+            breakpoint: null,
+            target: this.el,
+            isActive: true,
+        };
+
+        this.activeRule = this.defaultRule;
     }
 
     handleResize() {
-        if (this.rules.length === 0) return;
+        this.onResize = throttle(() => {
+            let newRule = this.defaultRule;
 
-        for (let rule of this.rules) {
-            let query = window.matchMedia(`(min-width: ${rule[0]})`);
+            for (let rule of this.rules) {
+                const query = window.matchMedia(`(min-width: ${rule.breakpoint})`);
 
-            if (query.matches) {
-                const target = document.querySelector(rule[1]);
-
-                if (target) {
-                    target.innerHTML = this.innerHTML;
-                    console.log('Rule matched:', rule[0])
-                    return;
+                if (query.matches) {
+                    newRule = rule;
+                    break;
                 }
             }
 
-            this.el.innerHTML = this.innerHTML;
-            console.log('No rules matched')
+            if (!newRule.isActive) {
+                this.activateRule(newRule);
+            }
+        }, this.RESIZE_THROTTLE_TIME);
+
+        this.onResize();
+        window.addEventListener('resize', this.onResize);
+    }
+
+    activateRule(rule) {
+        if (this.activeRule) {
+            this.activeRule.isActive = false;
+            this.activeRule.target.innerHTML = '';
         }
+        rule.target.innerHTML = this.initialContent;
+        rule.isActive = true;
+        this.activeRule = rule;
     }
 }
+
+Teleport.RESIZE_THROTTLE_TIME = 100;
+
