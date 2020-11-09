@@ -1,0 +1,26 @@
+<html>
+<head>
+    <title>Teleport Test</title>
+</head>
+<body>
+    <div data-teleport='[[ "1024px", "#part-1-desktop" ]]'>
+        <span>Part 1</span>
+    </div>
+
+    <div>
+        <span>Part 2</span>
+    </div>
+
+    <div>
+        <span>Part 3</span>
+    </div>
+
+    <div id="part-1-desktop"></div>
+
+    <script src="./teleport.js"></script>
+    <script>
+        document.querySelectorAll('[data-teleport]')
+            .forEach(el => new Teleport(el));
+    </script>
+</body>
+</html>
