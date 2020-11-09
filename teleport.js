@@ -13,19 +13,25 @@ function throttle (callback, limit) {
 }
 
 class Teleport {
-    constructor(el) {
+    constructor(el, config={}) {
+        if (el._teleport_js) return el._teleport_js;
+        el._teleport_js = this;
+
         this.el = el;
+        this.config = config;
         this.initialContent = this.el.innerHTML;
         this.initRules();
-        this.handleResize();
+        this.initResize();
     }
 
     destroy() {
         window.removeEventListener('resize', this.onResize);
+        this.activateRule(this.defaultRule);
+        delete this.el._teleport_js;
     }
 
     initRules() {
-        const rulesList = JSON.parse(this.el.dataset.teleport);
+        const rulesList = this.config.rules || JSON.parse(this.el.dataset.teleport);
 
         this.rules = rulesList.map(rule => ({
             breakpoint: rule[0],
@@ -42,7 +48,7 @@ class Teleport {
         this.activeRule = this.defaultRule;
     }
 
-    handleResize() {
+    initResize() {
         this.onResize = throttle(() => {
             let newRule = this.defaultRule;
 
@@ -66,14 +72,32 @@ class Teleport {
 
     activateRule(rule) {
         if (this.activeRule) {
-            this.activeRule.isActive = false;
-            this.activeRule.target.innerHTML = '';
+            this.deactivateRule(this.activeRule);
         }
-        rule.target.innerHTML = this.initialContent;
+        if (rule.breakpoint) {
+            rule.target.classList.add(this.IS_TELEPORTED_CLASS);
+        }
         rule.isActive = true;
+        rule.target.innerHTML = this.initialContent;
         this.activeRule = rule;
+
+        if (typeof this.config.onTeleported === 'function') {
+            this.config.onTeleported(rule.target);
+        }
+    }
+
+    deactivateRule(rule) {
+        rule.isActive = false;
+        rule.target.innerHTML = '';
+        rule.target.classList.remove(this.IS_TELEPORTED_CLASS);
+    }
+
+    static start() {
+        document.querySelectorAll('[data-teleport]')
+            .forEach(el => new Teleport(el));
     }
 }
 
-Teleport.RESIZE_THROTTLE_TIME = 100;
+Teleport.prototype.IS_TELEPORTED_CLASS = 'is-teleported';
+Teleport.prototype.RESIZE_THROTTLE_TIME = 100;
 
