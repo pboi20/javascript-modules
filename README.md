@@ -1,7 +1,7 @@
 # javascript-modules
 
 
-A collection of Vanilla ES6 modules I tend to reuse.
+A collection of vanilla ES6 modules I tend to reuse.
 
 
 ### Requirements
