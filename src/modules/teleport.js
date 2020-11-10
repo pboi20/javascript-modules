@@ -1,3 +1,38 @@
+/*! teleport.js | (c) 2020 Patrick Boivin | MIT License | https://github.com/pboi20/javascript-modules */
+
+/**
+ * Teleport
+ *
+ *     Move markup between container elements following responsive rules.
+ *
+ *
+ * Usage
+ *
+ *     Via JS:
+ *
+ *         new Teleport(element, {
+ *             rules: [
+ *                 ["1024px", "#destionation-lg"],
+ *                 ["768px", "#destionation-md"]
+ *             ]
+ *         })
+ *
+ *
+ *     Via HTML Data Attributes:
+ *
+ *         <div data-teleport='[
+ *             ["1024px", "#destionation-lg"],
+ *             ["768px", "#destionation-md"]
+ *         ]'>
+ *             Teleported Content
+ *         </div>
+ *
+ *
+ *     You need to call `Teleport.initializeAll()` to detect `data-teleport`
+ *     attributes.
+ *
+ */
+
 import throttle from '../utils/throttle';
 
 const DEFAULT_CONFIG = {
