@@ -18,7 +18,7 @@ const defaultConfig = {
     onTeleported: () => {},
 };
 
-class Teleport {
+export default class Teleport {
     constructor(el, options={}) {
         if (el._teleport_js) return el._teleport_js;
         el._teleport_js = this;
@@ -98,7 +98,7 @@ class Teleport {
         rule.target.classList.remove(this.config.isTeleportedClass);
     }
 
-    static start() {
+    static initializeAll() {
         document.querySelectorAll('[data-teleport]')
             .forEach(el => new Teleport(el));
     }

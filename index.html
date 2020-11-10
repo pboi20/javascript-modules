@@ -3,11 +3,7 @@
     <title>Teleport Test</title>
 </head>
 <body>
-    <!-- <div data-teleport='[[ "1024px", "#part-1-desktop" ]]'> -->
-    <!--     <span>Part 1</span> -->
-    <!-- </div> -->
-
-    <div id="part-1">
+    <div data-teleport='[["1024px", "#part-1-desktop"]]'>
         <span>Part 1</span>
     </div>
 
@@ -21,15 +17,11 @@
 
     <div id="part-1-desktop"></div>
 
-    <script src="./teleport.js"></script>
-    <script>
-        //Teleport.start();
-        const part1 = document.querySelector('#part-1');
-        new Teleport(part1, {
-            rules: [['1024px', '#part-1-desktop']],
-            onTeleported: function (el) {
-                console.log('Teleported', el)
-            }
+    <script type="module">
+        import Teleport from './teleport.js';
+
+        document.addEventListener('DOMContentLoaded', () => {
+            Teleport.initializeAll();
         });
     </script>
 </body>
