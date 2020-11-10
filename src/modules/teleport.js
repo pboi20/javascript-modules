@@ -39,6 +39,7 @@ const DEFAULT_CONFIG = {
     isTeleportedClass:  'is-teleported',
     resizeThrottleTime: 100,
     onTeleported: () => {},
+    matchMedia: rule => window.matchMedia(`(min-width: ${rule.breakpoint})`),
 };
 
 const INSTANCE_KEY = '_teleport_js';
@@ -85,7 +86,7 @@ export default class Teleport {
             let newRule = this.defaultRule;
 
             for (let rule of this.rules) {
-                const query = window.matchMedia(`(min-width: ${rule.breakpoint})`);
+                const query = this.config.matchMedia(rule);
 
                 if (query.matches) {
                     newRule = rule;
