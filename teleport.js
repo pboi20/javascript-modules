@@ -12,13 +12,19 @@ function throttle (callback, limit) {
     }
 }
 
+const defaultConfig = {
+    isTeleportedClass:  'is-teleported',
+    resizeThrottleTime: 100,
+    onTeleported: () => {},
+};
+
 class Teleport {
-    constructor(el, config={}) {
+    constructor(el, options={}) {
         if (el._teleport_js) return el._teleport_js;
         el._teleport_js = this;
 
         this.el = el;
-        this.config = config;
+        this.config = Object.assign({}, defaultConfig, options);
         this.initialContent = this.el.innerHTML;
         this.initRules();
         this.initResize();
@@ -64,7 +70,7 @@ class Teleport {
             if (!newRule.isActive) {
                 this.activateRule(newRule);
             }
-        }, this.RESIZE_THROTTLE_TIME);
+        }, this.config.isTeleportedClass);
 
         this.onResize();
         window.addEventListener('resize', this.onResize);
@@ -75,7 +81,7 @@ class Teleport {
             this.deactivateRule(this.activeRule);
         }
         if (rule.breakpoint) {
-            rule.target.classList.add(this.IS_TELEPORTED_CLASS);
+            rule.target.classList.add(this.config.isTeleportedClass);
         }
         rule.isActive = true;
         rule.target.innerHTML = this.initialContent;
@@ -89,7 +95,7 @@ class Teleport {
     deactivateRule(rule) {
         rule.isActive = false;
         rule.target.innerHTML = '';
-        rule.target.classList.remove(this.IS_TELEPORTED_CLASS);
+        rule.target.classList.remove(this.config.isTeleportedClass);
     }
 
     static start() {
@@ -97,7 +103,3 @@ class Teleport {
             .forEach(el => new Teleport(el));
     }
 }
-
-Teleport.prototype.IS_TELEPORTED_CLASS = 'is-teleported';
-Teleport.prototype.RESIZE_THROTTLE_TIME = 100;
-
