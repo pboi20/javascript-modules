@@ -1,18 +1,21 @@
 import throttle from '../utils/throttle';
 
-const defaultConfig = {
+const DEFAULT_CONFIG = {
     isTeleportedClass:  'is-teleported',
     resizeThrottleTime: 100,
     onTeleported: () => {},
 };
 
+const INSTANCE_KEY = '_teleport_js';
+
 export default class Teleport {
     constructor(el, options={}) {
-        if (el._teleport_js) return el._teleport_js;
-        el._teleport_js = this;
+        // Prevent multiple initializations of the same element
+        if (el[INSTANCE_KEY]) return el[INSTANCE_KEY];
+        el[INSTANCE_KEY] = this;
 
         this.el = el;
-        this.config = Object.assign({}, defaultConfig, options);
+        this.config = Object.assign({}, DEFAULT_CONFIG, options);
         this.initialContent = this.el.innerHTML;
         this.initRules();
         this.initResize();
@@ -21,7 +24,7 @@ export default class Teleport {
     destroy() {
         window.removeEventListener('resize', this.onResize);
         this.activateRule(this.defaultRule);
-        delete this.el._teleport_js;
+        delete this.el[INSTANCE_KEY];
     }
 
     initRules() {
@@ -55,9 +58,7 @@ export default class Teleport {
                 }
             }
 
-            if (!newRule.isActive) {
-                this.activateRule(newRule);
-            }
+            this.activateRule(newRule);
         }, this.config.isTeleportedClass);
 
         this.onResize();
@@ -65,6 +66,8 @@ export default class Teleport {
     }
 
     activateRule(rule) {
+        if (rule.isActive) return;
+
         if (this.activeRule) {
             this.deactivateRule(this.activeRule);
         }
