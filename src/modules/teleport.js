@@ -95,7 +95,7 @@ export default class Teleport {
             }
 
             this.activateRule(newRule);
-        }, this.config.isTeleportedClass);
+        }, this.config.resizeThrottleTime);
 
         this.onResize();
         window.addEventListener('resize', this.onResize);
