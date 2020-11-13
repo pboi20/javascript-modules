@@ -3,11 +3,13 @@
   "description": "A collection of Vanilla ES6 modules I tend to reuse",
   "dependencies": {},
   "devDependencies": {
+    "http-server": "^0.12.3",
     "parcel": "^2.0.0-beta.1"
   },
   "scripts": {
     "dev": "npm run clean && parcel watch src/main.js",
     "build": "npm run clean && parcel build src/main.js --no-source-maps",
-    "clean": "rm -rf dist/*"
+    "clean": "rm -rf dist/*",
+    "serve": "http-server"
   }
 }
