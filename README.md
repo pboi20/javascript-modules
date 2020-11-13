@@ -27,6 +27,10 @@ Starts the bundler in watch mode.
 
 Creates a production bundle at `dist/main.js`.
 
+#### `npm run serve`
+
+Starts a local HTTP server. Access the demos at `http://localhost:8080/demo/`.
+
 
 ### Disclaimer
 
