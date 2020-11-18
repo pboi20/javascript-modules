@@ -33,16 +33,16 @@
  *
  */
 
-import throttle from '../utils/throttle';
+import throttle from "../utils/throttle";
 
 const DEFAULT_CONFIG = {
-    isTeleportedClass:  'is-teleported',
+    isTeleportedClass:  "is-teleported",
     resizeThrottleTime: 100,
     onTeleported: () => {},
     matchMedia: rule => window.matchMedia(`(min-width: ${rule.breakpoint})`),
 };
 
-const INSTANCE_KEY = '_teleport_js';
+const INSTANCE_KEY = "_teleport_js";
 
 export default class Teleport {
     constructor(el, options={}) {
@@ -58,7 +58,7 @@ export default class Teleport {
     }
 
     destroy() {
-        window.removeEventListener('resize', this.onResize);
+        window.removeEventListener("resize", this.onResize);
         this.activateRule(this.defaultRule);
         delete this.el[INSTANCE_KEY];
     }
@@ -98,7 +98,7 @@ export default class Teleport {
         }, this.config.resizeThrottleTime);
 
         this.onResize();
-        window.addEventListener('resize', this.onResize);
+        window.addEventListener("resize", this.onResize);
     }
 
     activateRule(rule) {
@@ -114,19 +114,19 @@ export default class Teleport {
         rule.target.innerHTML = this.initialContent;
         this.activeRule = rule;
 
-        if (typeof this.config.onTeleported === 'function') {
+        if (typeof this.config.onTeleported === "function") {
             this.config.onTeleported(rule.target);
         }
     }
 
     deactivateRule(rule) {
         rule.isActive = false;
-        rule.target.innerHTML = '';
+        rule.target.innerHTML = "";
         rule.target.classList.remove(this.config.isTeleportedClass);
     }
 
     static initializeAll() {
-        document.querySelectorAll('[data-teleport]')
+        document.querySelectorAll("[data-teleport]")
             .forEach(el => new Teleport(el));
     }
 }

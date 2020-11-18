@@ -19,9 +19,9 @@
 
     <script src="/dist/main.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            new Teleport(document.querySelector('#part-3'), {
-                rules: [[ '1023px', '#part-3-mobile' ]],
+        document.addEventListener("DOMContentLoaded", () => {
+            new Teleport(document.querySelector("#part-3"), {
+                rules: [[ "1023px", "#part-3-mobile" ]],
                 matchMedia: rule => window.matchMedia(`(max-width: ${rule.breakpoint})`),
             });
         });

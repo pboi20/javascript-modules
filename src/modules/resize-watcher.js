@@ -26,10 +26,10 @@
  *
  */
 
-const INSTANCE_KEY = '_resize_watcher_js';
+const INSTANCE_KEY = "_resize_watcher_js";
 
 const DEFAULT_CONFIG = {
-    name:  'container',
+    name:  "container",
 };
 
 export default class ResizeWatcher {
@@ -63,7 +63,7 @@ export default class ResizeWatcher {
     }
 
     static initializeAll() {
-        document.querySelectorAll('[data-resize-watcher]')
+        document.querySelectorAll("[data-resize-watcher]")
             .forEach(el => new ResizeWatcher(el));
     }
 }
