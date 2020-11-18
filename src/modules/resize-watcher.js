@@ -24,6 +24,11 @@
  *     You need to call `ResizeWatcher.initializeAll()` to detect
  *     `data-resize-watcher` attributes.
  *
+ *
+ * Polyfills
+ *
+ *     https://polyfill.io/v3/polyfill.min.js?features=ResizeObserver
+ *
  */
 
 const INSTANCE_KEY = "_resize_watcher_js";
