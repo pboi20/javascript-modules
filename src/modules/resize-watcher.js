@@ -3,12 +3,26 @@
 /**
  * Resize Watcher
  *
- *     XXX
+ *     Observe the size of an element and set corresponding CSS custom properties
+ *     onto it.
  *
  *
  * Usage
  *
- *     XXX
+ *     Via JS:
+ *
+ *         new ResizeWatcher(element, { name: "my-container" })
+ *
+ *
+ *     Via HTML Data Attributes:
+ *
+ *         <div data-resize-watcher="my-container">
+ *             <!-- ... -->
+ *         </div>
+ *
+ *
+ *     You need to call `ResizeWatcher.initializeAll()` to detect
+ *     `data-resize-watcher` attributes.
  *
  */
 
