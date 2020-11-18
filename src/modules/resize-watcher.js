@@ -25,6 +25,12 @@ export default class ResizeWatcher {
         this.initResizeObserver();
     }
 
+    destroy() {
+        this.resizeObserver.disconnect();
+        delete this.resizeObserver;
+        delete this.el[INSTANCE_KEY];
+    }
+
     initResizeObserver() {
         this.resizeObserver = new ResizeObserver(entries => {
             for (let entry of entries) {
@@ -35,12 +41,6 @@ export default class ResizeWatcher {
         });
 
         this.resizeObserver.observe(this.el);
-    }
-
-    destroy() {
-        this.resizeObserver.disconnect();
-        delete this.resizeObserver;
-        delete this.el[INSTANCE_KEY];
     }
 
     static initializeAll() {
