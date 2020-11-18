@@ -14,14 +14,19 @@
 
 const INSTANCE_KEY = '_resize_watcher_js';
 
+const DEFAULT_CONFIG = {
+    name:  'container',
+};
+
 export default class ResizeWatcher {
-    constructor(el) {
+    constructor(el, options={}) {
         // Prevent multiple initializations of the same element
         if (el[INSTANCE_KEY]) return el[INSTANCE_KEY];
         el[INSTANCE_KEY] = this;
 
         this.el = el;
-        this.name = el.dataset.resizeWatcher || 'container';
+        this.config = Object.assign({}, DEFAULT_CONFIG, options);
+        this.name = el.dataset.resizeWatcher || this.config.name;
         this.initResizeObserver();
     }
 
