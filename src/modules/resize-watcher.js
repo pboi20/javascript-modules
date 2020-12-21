@@ -11,7 +11,7 @@
  *
  *     Via JS:
  *
- *         new ResizeWatcher(element, { name: "my-container" })
+ *         new ResizeWatcher(elementOrSelector, { name: "my-container" })
  *
  *
  *     Via HTML Data Attributes:
@@ -31,6 +31,8 @@
  *
  */
 
+import { elementOrSelector } from "../utils/element";
+
 const INSTANCE_KEY = "_resize_watcher_js";
 
 const DEFAULT_CONFIG = {
@@ -39,6 +41,8 @@ const DEFAULT_CONFIG = {
 
 export default class ResizeWatcher {
     constructor(el, options={}) {
+        el = elementOrSelector(el);
+
         // Prevent multiple initializations of the same element
         if (el[INSTANCE_KEY]) return el[INSTANCE_KEY];
         el[INSTANCE_KEY] = this;

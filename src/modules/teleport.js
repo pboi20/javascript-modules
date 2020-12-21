@@ -10,7 +10,7 @@
  *
  *     Via JS:
  *
- *         new Teleport(element, {
+ *         new Teleport(elementOrSelector, {
  *             rules: [
  *                 ["1024px", "#destionation-lg"],
  *                 ["768px", "#destionation-md"]
@@ -33,6 +33,7 @@
  *
  */
 
+import { elementOrSelector } from "../utils/element";
 import { throttle } from "../utils/event";
 
 const DEFAULT_CONFIG = {
@@ -46,6 +47,8 @@ const INSTANCE_KEY = "_teleport_js";
 
 export default class Teleport {
     constructor(el, options={}) {
+        el = elementOrSelector(el);
+
         // Prevent multiple initializations of the same element
         if (el[INSTANCE_KEY]) return el[INSTANCE_KEY];
         el[INSTANCE_KEY] = this;
