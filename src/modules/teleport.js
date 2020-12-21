@@ -33,7 +33,7 @@
  *
  */
 
-import throttle from "../utils/throttle";
+import { throttle } from "../utils/event";
 
 const DEFAULT_CONFIG = {
     isTeleportedClass:  "is-teleported",
