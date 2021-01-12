@@ -9,20 +9,7 @@
  *
  * Usage
  *
- *     Via JS:
- *
- *         new ResizeWatcher(elementOrSelector, { name: "my-container" })
- *
- *
- *     Via HTML Data Attributes:
- *
- *         <div data-resize-watcher="my-container">
- *             <!-- ... -->
- *         </div>
- *
- *
- *     You need to call `ResizeWatcher.initializeAll()` to detect
- *     `data-resize-watcher` attributes.
+ *     new ResizeWatcher(elementOrSelector, { name: "my-container" })
  *
  *
  * Polyfills
@@ -49,7 +36,7 @@ export default class ResizeWatcher {
 
         this.el = el;
         this.config = Object.assign({}, DEFAULT_CONFIG, options);
-        this.name = el.dataset.resizeWatcher || this.config.name;
+        this.name = this.config.name;
         this.initResizeObserver();
     }
 
@@ -69,10 +56,5 @@ export default class ResizeWatcher {
         });
 
         this.resizeObserver.observe(this.el);
-    }
-
-    static initializeAll() {
-        document.querySelectorAll("[data-resize-watcher]")
-            .forEach(el => new ResizeWatcher(el));
     }
 }

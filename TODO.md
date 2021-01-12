@@ -1,10 +1,10 @@
 # Things to do
 
 - [x] add editorconfig
+- [x] remove data-attribute api
 - [ ] setup eslint
 - [ ] setup prettier
 - [ ] add more modules
-- [ ] remove data-attribute support
 
 
 ## ResizeWatcher

@@ -8,28 +8,13 @@
  *
  * Usage
  *
- *     Via JS:
- *
- *         new Teleport(elementOrSelector, {
- *             rules: [
- *                 ["1024px", "#destionation-lg"],
- *                 ["768px", "#destionation-md"]
- *             ]
- *         })
- *
- *
- *     Via HTML Data Attributes:
- *
- *         <div data-teleport='[
+ *     new Teleport(elementOrSelector, {
+ *         rules: [
  *             ["1024px", "#destionation-lg"],
- *             ["768px", "#destionation-md"]
- *         ]'>
- *             Teleported Content
- *         </div>
- *
- *
- *     You need to call `Teleport.initializeAll()` to detect `data-teleport`
- *     attributes.
+ *             ["768px", "#destionation-md"],
+ *             // ...
+ *         ]
+ *     })
  *
  */
 
@@ -67,7 +52,7 @@ export default class Teleport {
     }
 
     initRules() {
-        const rulesList = this.config.rules || JSON.parse(this.el.dataset.teleport);
+        const rulesList = this.config.rules;
 
         this.rules = rulesList.map(rule => ({
             breakpoint: rule[0],
@@ -126,10 +111,5 @@ export default class Teleport {
         rule.isActive = false;
         rule.target.innerHTML = "";
         rule.target.classList.remove(this.config.isTeleportedClass);
-    }
-
-    static initializeAll() {
-        document.querySelectorAll("[data-teleport]")
-            .forEach(el => new Teleport(el));
     }
 }
