@@ -1,4 +1,4 @@
-/*! teleport.js | (c) 2020 Patrick Boivin | MIT License | https://github.com/pboi20/javascript-modules */
+/*! teleport.js | (c) 2021 Patrick Boivin | MIT License | https://github.com/pboi20/javascript-modules */
 
 /**
  * Teleport
