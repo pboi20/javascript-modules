@@ -1,9 +1,9 @@
 <html>
 <head>
-    <title>Teleport Test - Using data attribute</title>
+    <title>Teleport Test</title>
 </head>
 <body>
-    <div data-teleport='[["1024px", "#part-1-desktop"]]'>
+    <div id="part-1">
         <span>Part 1 - Will be last at &gt;= 1024px</span>
     </div>
 
@@ -20,7 +20,9 @@
     <script src="/dist/main.js"></script>
     <script>
         document.addEventListener("DOMContentLoaded", () => {
-            Teleport.initializeAll();
+            new Teleport("#part-1", {
+                rules: [[ "1024px", "#part-1-desktop" ]],
+            });
         });
     </script>
 </body>
