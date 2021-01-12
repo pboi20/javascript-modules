@@ -4,6 +4,7 @@
 - [x] remove data-attribute api
 - [ ] setup eslint
 - [ ] setup prettier
+- [ ] setup cypress tests
 - [ ] add more modules
 
 
@@ -14,6 +15,6 @@
 
 ## Ideas
 
-utils/getOffset()
-    https://github.com/pboi20/blacks-frontend/blob/7b9dd084200255de6bd5d4078e09f023b4256945/src/js/utils/screen.js
-    https://github.com/jquery/jquery/blob/master/src/offset.js
+- utils/getOffset()
+  - https://github.com/pboi20/blacks-frontend/blob/7b9dd084200255de6bd5d4078e09f023b4256945/src/js/utils/screen.js
+  - https://github.com/jquery/jquery/blob/master/src/offset.js
