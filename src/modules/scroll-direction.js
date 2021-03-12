@@ -1,5 +1,24 @@
 /*! scroll-direction.js | (c) 2021 Patrick Boivin | MIT License | https://github.com/pboi20/javascript-modules */
 
+/**
+ * Scroll Direction
+ *
+ *     Listen to scroll events and execute custom actions according to the direction
+ *     of the scroll.
+ *
+ *
+ * Usage
+ *
+ *     new ScrollDirection({
+ *         up: () => {
+ *             ...
+ *         },
+ *         down: () => {
+ *             ...
+ *         },
+ *     })
+ *
+ */
 import { elementOrSelector } from "../utils/element";
 import { throttle } from "../utils/event";
 
