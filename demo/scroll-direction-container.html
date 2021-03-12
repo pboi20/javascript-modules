@@ -1,0 +1,42 @@
+<html>
+<head>
+    <title>ScrollDirection Test - Using container element</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            height: 50vh;
+            overflow-y: scroll;
+        }
+
+        .inner {
+            height: 3000px;
+            background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(0,0,0,1) 100%);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="inner"></div>
+    </div>
+
+    <script src="/dist/main.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            new ScrollDirection({
+                scrollContainer: document.querySelector('.container'),
+                up: () => console.log("Scrolling up..."),
+                down: () => console.log("Scrolling down..."),
+            })
+        });
+    </script>
+</body>
+</html>
