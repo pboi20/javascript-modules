@@ -21,6 +21,7 @@
  */
 import { elementOrSelector } from "../utils/element";
 import { throttle } from "../utils/event";
+import * as viewport from "../utils/viewport";
 
 const DEFAULT_CONFIG = {
     scrollContainer: null,
@@ -32,27 +33,43 @@ const DEFAULT_CONFIG = {
 export default class ScrollDirection {
     constructor(options={}) {
         this.config = Object.assign({}, DEFAULT_CONFIG, options);
-        this.listener = elementOrSelector(this.config.scrollContainer || window);
-        this.container = elementOrSelector(this.config.scrollContainer || document.body);
-        this.previousScrollTop = -1;
+        this.previousPosition = -1;
 
         this.initScrollListener();
     }
 
     destroy() {
-        this.listener.removeEventListener('scroll', this.onScroll);
+        this.listener.removeEventListener('scroll', this._onScroll);
     }
 
     initScrollListener() {
-        this.onScroll = throttle((e) => {
-            if (this.container.scrollTop > this.previousScrollTop) {
+        this._onScroll = throttle((e) => {
+            if (this.position > this.previousPosition) {
                 this.config.down();
             } else {
                 this.config.up();
             }
-            this.previousScrollTop = this.container.scrollTop;
+            this.previousPosition = this.position;
         }, this.config.throttleTime);
 
-        this.listener.addEventListener('scroll', this.onScroll);
+        this.listener.addEventListener('scroll', this._onScroll);
+    }
+
+    get listener() {
+        if (! this._listenerElement) {
+            if (this.config.scrollContainer) {
+                this._listenerElement = elementOrSelector(this.config.scrollContainer);
+            } else {
+                this._listenerElement = window;
+            }
+        }
+        return this._listenerElement;
+    }
+
+    get position() {
+        if (this.listener === window) {
+            return viewport.getScrollTop();
+        }
+        return this.listener.scrollTop;
     }
 }
