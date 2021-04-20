@@ -14,12 +14,12 @@ export function getHeight() {
 /**
  * Reference: https://stackoverflow.com/a/3464890
  */
-export function getScrollY() {
+export function getScrollTop() {
   const doc = document.documentElement;
   return (window.pageYOffset || doc.scrollTop) - (doc.clientTop || 0);
 }
 
-export function getScrollX() {
+export function getScrollLeft() {
   const doc = document.documentElement;
   return (window.pageXOffset || doc.scrollLeft) - (doc.clientLeft || 0);
 }
