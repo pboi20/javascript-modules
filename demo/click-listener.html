@@ -1,0 +1,63 @@
+<html>
+<head>
+    <title>ClickListener Test</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            padding: 1rem;
+            margin-bottom: 1rem;
+            color: white;
+            background-color: black;
+        }
+
+        a {
+            color: inherit;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="container1">
+        <a href="#">Container1</a>
+    </div>
+
+    <div class="container" id="container2">
+        <a href="#">Container2</a>
+    </div>
+
+    <script src="/dist/main.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            new ClickListener('#container1', {
+                inside: e => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    console.log("Clicked inside 1", e.target);
+                },
+                outside: e => {
+                    console.log("Clicked outside 1");
+                },
+            });
+
+            new ClickListener('#container2', {
+                inside: e => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    console.log("Clicked inside 2", e.target);
+                },
+                outside: e => {
+                    console.log("Clicked outside 2");
+                },
+            });
+        });
+    </script>
+</body>
+</html>
