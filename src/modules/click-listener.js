@@ -20,8 +20,8 @@ import { elementOrSelector } from "../utils/element";
 const INSTANCE_KEY = "_click_listener_js";
 
 const DEFAULT_CONFIG = {
-    inside:  () => {},
-    outside:  () => {},
+    inside: false,
+    outside: false,
 };
 
 export default class ClickListener {
@@ -38,13 +38,21 @@ export default class ClickListener {
     }
 
     destroy() {
-        this.el.removeEventListener('click', this.config.inside);
-        document.body.removeEventListener('click', this.config.outside);
+        if (this.config.inside !== false) {
+            this.el.removeEventListener('click', this.config.inside);
+        }
+        if (this.config.outside !== false) {
+            document.body.removeEventListener('click', this.config.outside);
+        }
         delete this.el[INSTANCE_KEY];
     }
 
     handleClicks() {
-        this.el.addEventListener('click', this.config.inside);
-        document.body.addEventListener('click', this.config.outside);
+        if (this.config.inside !== false) {
+            this.el.addEventListener('click', this.config.inside);
+        }
+        if (this.config.outside !== false) {
+            document.body.addEventListener('click', this.config.outside);
+        }
     }
 }
