@@ -17,12 +17,12 @@
 
 import { elementOrSelector } from "../utils/element";
 
-const INSTANCE_KEY = "_click_listener_js";
-
 const DEFAULT_CONFIG = {
     inside: false,
     outside: false,
 };
+
+const INSTANCE_KEY = "_click_listener_js";
 
 export default class ClickListener {
     constructor(el, options={}) {
@@ -34,6 +34,7 @@ export default class ClickListener {
 
         this.el = el;
         this.config = Object.assign({}, DEFAULT_CONFIG, options);
+
         this.handleClicks();
     }
 

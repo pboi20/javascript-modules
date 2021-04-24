@@ -20,11 +20,11 @@
 
 import { elementOrSelector } from "../utils/element";
 
-const INSTANCE_KEY = "_resize_watcher_js";
-
 const DEFAULT_CONFIG = {
     name:  "container",
 };
+
+const INSTANCE_KEY = "_resize_watcher_js";
 
 export default class ResizeWatcher {
     constructor(el, options={}) {
@@ -37,6 +37,7 @@ export default class ResizeWatcher {
         this.el = el;
         this.config = Object.assign({}, DEFAULT_CONFIG, options);
         this.name = this.config.name;
+
         this.initResizeObserver();
     }
 

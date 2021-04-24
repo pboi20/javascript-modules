@@ -41,6 +41,7 @@ export default class Teleport {
         this.el = el;
         this.config = Object.assign({}, DEFAULT_CONFIG, options);
         this.initialContent = this.el.innerHTML;
+
         this.initRules();
         this.initResize();
     }
