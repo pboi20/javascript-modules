@@ -38,21 +38,28 @@ export default class ClickListener {
     }
 
     destroy() {
-        if (this.config.inside !== false) {
-            this.el.removeEventListener('click', this.config.inside);
+        if (this.onClickInside) {
+            this.el.removeEventListener('click', this.onClickInside);
         }
-        if (this.config.outside !== false) {
-            document.body.removeEventListener('click', this.config.outside);
+        if (this.onClickOutside) {
+            document.body.removeEventListener('click', this.onClickOutside);
         }
         delete this.el[INSTANCE_KEY];
     }
 
     handleClicks() {
         if (this.config.inside !== false) {
-            this.el.addEventListener('click', this.config.inside);
+            this.onClickInside = e => this.config.inside(e);
+            this.el.addEventListener('click', this.onClickInside);
         }
         if (this.config.outside !== false) {
-            document.body.addEventListener('click', this.config.outside);
+            this.onClickOutside = e => {
+                if (this.el === e.target) return;
+                if (this.el.contains(e.target)) return;
+
+                this.config.outside(e);
+            };
+            document.body.addEventListener('click', this.onClickOutside);
         }
     }
 }
