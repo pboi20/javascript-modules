@@ -1,5 +1,5 @@
 /**
- * Reference: https://stackoverflow.com/questions/4059147/check-if-a-variable-is-a-string-in-javascript
+ * Reference: https://stackoverflow.com/a/17772086
  */
 export function isString(obj) {
     return Object.prototype.toString.call(obj) === "[object String]"

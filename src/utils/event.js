@@ -1,5 +1,5 @@
 /**
- * Reference: https://stackoverflow.com/questions/27078285/simple-throttle-in-js
+ * Reference: https://stackoverflow.com/a/27078401
  */
 export function throttle(callback, limit) {
     let waiting = false;
