@@ -37,25 +37,13 @@
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             new ClickListener('#container1', {
-                inside: e => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    console.log("Clicked inside 1", e.target);
-                },
-                outside: e => {
-                    console.log("Clicked outside 1");
-                },
+                inside: e => console.log("Clicked inside 1", e.target),
+                outside: e => console.log("Clicked outside 1"),
             });
 
             new ClickListener('#container2', {
-                inside: e => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    console.log("Clicked inside 2", e.target);
-                },
-                outside: e => {
-                    console.log("Clicked outside 2");
-                },
+                inside: e => console.log("Clicked inside 2", e.target),
+                outside: e => console.log("Clicked outside 2"),
             });
         });
     </script>
